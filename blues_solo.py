@@ -44,4 +44,18 @@ BLUES_SCALE = [
     40, 43, 45, 46, 47, 50, 52, 55, 57, 58, 59, 62, 64, 67, 69, 70, 71, 74, 76]
 BEATS_PER_MINUTE = 45				# Let's make a slow blues solo
 
-play_note(BLUES_SCALE[0], beats=1, bpm=BEATS_PER_MINUTE)
+curr_note = 0
+play_note(BLUES_SCALE[curr_note], 1, BEATS_PER_MINUTE)
+licks = [[(1, 0.5 * 1.1), (1, 0.5 * 0.9), (1, 0.5 * 1.1), (1, 0.5 * 0.9)],
+         [(-1, 0.5 * 1.1), (-1, 0.5 * 0.9), (-1, 0.5 * 1.1), (-1, 0.5 * 0.9)],
+         [(1, 0.5 * 1.1), (-1, 0.5 * 0.9), (1, 0.5 * 1.1), (-1, 0.5 * 0.9)],
+         [(0, 0.5 * 1.1), (0.5, 0.5 * 0.7), (1, 0.5 * 1.3), (-1, 0.5 * 0.9)]]
+for _ in range(4):
+    lick = choice(licks)
+    for note in lick:
+        curr_note += note[0]
+        if curr_note < 0:
+            curr_note == 0
+        if curr_note > (len(BLUES_SCALE) - 1):
+            curr_note = int(len(BLUES_SCALE))
+        play_note(BLUES_SCALE[curr_note], note[1], BEATS_PER_MINUTE)
